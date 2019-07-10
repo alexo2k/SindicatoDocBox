@@ -1,0 +1,165 @@
+root { 
+    display: block;
+}
+
+body
+{
+    width: 800px;
+    margin: 0 auto;
+    background-image: url(images/fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    padding: 15px;
+}
+
+nav 
+{
+    width: 800px;
+    height: 35px;
+    margin: 0 auto;
+}
+
+nav ul
+{
+    list-style: none;
+    display: block;
+}
+
+nav ul li
+{
+    float: left;
+    margin: 0 0px;
+    /*margin: 0 2px;*/
+}
+
+nav ul li input
+{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #339;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -webkit-transition: all 0.5s linear; 
+    -o-transition: all 0.5s linear;
+    /*background-color: #DDD;*/
+    /*background: -webkit-radial-gradient(#DDD, #EEE); 
+    background: -moz-radial-gradient(#DDD, #EEE);*/
+    -moz-border-radius: 7px 7px 0 0; 
+    -webkit-border-radius: 7px 7px 0 0;
+	opacity: 0.7;
+}
+
+nav ul li input:hover
+{
+	/*background: #00008B; 
+    color: #3399FF;*/
+    /*background: #00008B; */
+	color: #09F;
+	opacity: 1;
+}
+
+h2
+{
+    background: none repeat scroll 0 0 #F3F3F3;
+    border-radius: 5px;
+    color: #339;
+    display: block;   
+    font-size: 16px;
+    padding-top: 15px;
+    padding-left: 5px;
+    text-shadow: 1px 1px 1px #CCCCCC;
+    /*width: 500px;*/
+    width: auto;
+    font-family: 'Times New Roman',Times,serif;
+    height: 40px;
+}
+
+#divTotal
+{
+        padding-top: -100px;
+	width: 725px;
+	margin: 0 auto;
+	padding: 40px;
+	/*background-color: #CCCCCC;*/
+}
+
+table 
+{
+    /*border-collapse: collapse;*/
+    opacity: 1.0;
+}
+
+th, td 
+{
+    padding: 3px;
+    width: 200px;
+    background-color: #5cd053;
+}
+
+thead, tbody
+{
+    transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -webkit-transition: all 0.5s linear; 
+    -o-transition: all 0.5s linear;
+}
+
+thead tr th
+{
+    background-color: #aaa;
+    color: #F3F3F3;
+}
+
+thead:hover
+{
+    opacity: 0.5;
+    background-color: #33c;
+}
+
+tbody:hover
+{
+    background-color: #CCC;
+}
+
+thead tr th:nth-child(3), tbody tr td:nth-child(3)
+{
+   width: 100px;
+}
+
+/*thead tr th:first-child
+{
+    border-top-left-radius: 6px;
+    -moz-border-radius: 6px 0 0 0; 
+    -webkit-border-radius: 6px 0 0 0;
+}
+
+thead tr th:last-child
+{
+    border-top-left-radius: 6px;
+    -moz-border-radius: 0 6px 0 0; 
+    -webkit-border-radius: 0 6px 0 0;
+}
+*/
+
+tbody tr td:first-child
+{
+    border-bottom-left-radius: 6px;
+    -moz-border-radius: 0 0 0 6px; 
+    -webkit-border-radius: 0 0 0 6px;
+}
+
+tbody tr td:last-child
+{
+    border-bottom-right-radius: 6px;
+    -moz-border-radius: 0 0 6px 0; 
+    -webkit-border-radius: 0 0 6px 0;
+}
+
+
+
+
+
+
