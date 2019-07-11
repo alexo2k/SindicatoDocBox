@@ -10,7 +10,17 @@
         die('No pudo conectarse: ' . mysql_error());
     }
 
-    echo '<table><thead><tr><th>Asunto</th><th>Fecha Ingreso</th><th>Secretaría Responsable</th><th>Estatus</th></tr></thead>';
+print <<< EOC
+        <table>
+            <thead>
+                <tr>
+                    <th>Asunto</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Secretaría Reponsable</th>
+                    <th>Estatus</th>
+                </tr>
+            </thead>
+EOC;
 
     try {
         $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
@@ -24,9 +34,9 @@
             while($registro = mysql_fetch_assoc($resultado)) {
                 echo '<tr>';
                 echo '<td>' . $registro['asunto'] . '</td>';
-                echo '<td>' . $registro['fecha_recepcion'] . '</td>';
+                echo '<td style="text-align:center">' . $registro['fecha_recepcion'] . '</td>';
                 echo '<td>' . $registro['secretaria'] . '</td>';
-                echo '<td>' . $registro['estatus'] . '</td>';
+                echo '<td style="text-align:center">' . $registro['estatus'] . '</td>';
                 echo '</tr>';
             }
             echo '</tbody>';
