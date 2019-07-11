@@ -141,6 +141,8 @@ _END;
                         <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total de Adeudo">
                     </li>
                     <li>
+                        <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites"></li>
+                    <li>
                         <input type="button" name="boton3" onclick="cerrarSesion()" value="CerrarSesion">
                     </li>                   
                 </ul>

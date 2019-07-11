@@ -7,18 +7,22 @@
         protected $usuario;
         protected $contrasena;
         protected $baseDeDatos;
+
+        protected $baseDocBox;
         
         public function __construct() 
         {
             //inicializamos propiedades
+            // $this->servidor = 'localhost';
+            // $this->usuario = 'sntsep5_consulta';
+            // $this->contrasena = 'consultaSNT2k13';
+            // $this->baseDeDatos = 'sntsep5_sistemaaportaciones';
+            
             $this->servidor = 'localhost';
-            $this->usuario = 'sntsep5_consulta';
-            $this->contrasena = 'consultaSNT2k13';
+            $this->usuario = 'root';
+            $this->contrasena = 'eti11$$$';
             $this->baseDeDatos = 'sntsep5_sistemaaportaciones';
-            //$this->servidor = '127.0.0.1';
-            //$this->usuario = 'root';
-            //$this->contrasena = 'eti11$$';
-            //$this->baseDeDatos = 'sistemaaportaciones';
+            $this->baseDocBox = '`sntsep5_internaldocbox`';
         }
         
         public function cadenaConexion()
@@ -258,6 +262,46 @@
             return $aportacionSindical;
         }
         
+        public function recuperaTramites($idEmpleado) {
+
+            $streamBD = mysql_connect($this->servidor,$this->usuario,$this->contrasena);
+
+            if(!streamBD) {
+                die('No pudo conectarse: ' . mysql_error());
+            }
+
+            try {
+                $baseseleccionada = mysql_select_db($this->baseDocBox, $stream) or die('No se pudo conectar a la base de Tramites');
+                
+                $resultado = mysql_query("SELECT info.asunto, info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria where info.id_trabajador = 9");
+                
+                $numeroRegistro = mysql_num_rows($resultado);
+               
+                if($numeroRegistro > 0) {
+
+                    while($registro = mysql_fetch_array($resultado)) {
+                        
+                        $arrayTramite = array 
+                        (
+                            "asunto" => $registro{'Asunto'},
+                            "fechaRecepcion" => $registro{'Fecha_Recepcion'},
+                            "secretaria" => $registro{'Secretaria'},
+                            "estatus" => $registro{'estatus'}
+                        );
+                    }
+                } else {
+                    $arrayTramite = null;
+                }
+            } catch (Exception $e) {
+                mysql_close($streamBD);
+                throw new Exception('Ocurrio un error al intentar validar las credenciales: ' + $e->getMessage());
+            }
+
+            mysql_close($streamBD);
+            
+            return $arrayTramite;
+        }
+
         public function recuperaAdeudo($idEmpleado)
         {
             $streamBD = mysql_connect($this->servidor,$this->usuario,$this->contrasena);
