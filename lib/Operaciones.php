@@ -22,7 +22,7 @@
             $this->usuario = 'root';
             $this->contrasena = 'eti11$$$';
             $this->baseDeDatos = 'sntsep5_sistemaaportaciones';
-            $this->baseDocBox = '`sntsep5_internaldocbox`';
+            $this->baseDocBox = 'sntsep5_internaldocbox';
         }
         
         public function cadenaConexion()
@@ -271,7 +271,7 @@
             }
 
             try {
-                $baseseleccionada = mysql_select_db($this->baseDocBox, $stream) or die('No se pudo conectar a la base de Tramites');
+                $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base de Tramites');
                 
                 $resultado = mysql_query("SELECT info.asunto, info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria where info.id_trabajador = 9");
                 
@@ -283,9 +283,9 @@
                         
                         $arrayTramite = array 
                         (
-                            "asunto" => $registro{'Asunto'},
-                            "fechaRecepcion" => $registro{'Fecha_Recepcion'},
-                            "secretaria" => $registro{'Secretaria'},
+                            "asunto" => $registro{'asunto'},
+                            "fecha_recepcion" => $registro{'fecha_recepcion'},
+                            "secretaria" => $registro{'secretaria'},
                             "estatus" => $registro{'estatus'}
                         );
                     }
