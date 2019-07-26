@@ -80,10 +80,10 @@
         $resultadoAceptacion = $auxOperaciones->aceptacionPrivacidad($_SESSION['idEmpleado'],$_SESSION['RFC'], $ip, $resultadoCorreo);
     
         $_SESSION['PrivacidadAceptada'] == 'true';
-    }  
+    }
     
     $nombreUsuario = capitalizaNombre($_SESSION['Nombre']) . ' ' . ucfirst(strtolower($_SESSION['ApPaterno'])) . ' ' . ucfirst(strtolower($_SESSION['ApMaterno']));
-
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -129,6 +129,7 @@ _END;
     }
 ?>
             <h2><? echo "BIENVENIDO $nombreUsuario"; ?></h2>
+            <h3><? echo $_SESSION['RFC'] ?></h3>
             <nav>
                 <ul id="nav">
                     <li>
@@ -141,7 +142,8 @@ _END;
                         <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total de Adeudo">
                     </li>
                     <li>
-                        <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites"></li>
+                        <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites">
+                    </li>
                     <li>
                         <input type="button" name="boton3" onclick="cerrarSesion()" value="CerrarSesion">
                     </li>                   

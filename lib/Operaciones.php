@@ -174,14 +174,46 @@
             
             return $idEmpleado;
         }
+
+        public function recuperaDatosDocBox($empRFC) {
+            $streamBD = mysql_connect($this->servidor, $this->usuario, $this->contrasena);
+
+            if($streamBD) {
+                die('No pudo conectarse a la base de tramites: ' . mysql_error());
+            }
+
+            try {
+                $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base de Aportaciones');
+                
+                $resultado = mysql_query("SELECT id_trabajador FROM empleados WHERE filiacion = 'AEMM821014FA5'");
+
+                $numeroRegistro = mysql_num_rows($resultado);
+
+                if($numeroRegistro > 0) {
+                    while($registro = mysql_fetch_array($resultado)) {
+                        $idEmpDocBox = $registro{'id_trabajador'};
+                        $_SESSION['IdEmpDocBox'] = $idEmpDocBox;
+                    }
+                } else {
+                    $idEmpDocBox = 0;
+                }
+            } catch (Exception $ex) {
+                mysql_close($streamBD);
+                throw new Exception('Ocurrio un error al intentar validar las credenciales: ' + $ex->getMessage());
+            }
+
+            mysql_close($streamBD);
+
+            return $idEmpDocBox;
+        }
         
         public function recuperaDatosPersonales($idEmpleado)
         {
-            $streamBD = mysql_connect($this->servidor,$this->usuario,$this->contrasena);
+            $streamBD = mysql_connect($this->servidor, $this->usuario, $this->contrasena);
             
             if(!$streamBD)
             {
-                die('No pudo conectarse: ' . mysql_error());
+                die('No pudo conectarse a la base: ' . mysql_error());
             }
             
             try
@@ -262,7 +294,7 @@
             return $aportacionSindical;
         }
         
-        public function recuperaTramites($idEmpleado) {
+        public function recuperaTramites($idEmpDocBox) {
 
             $streamBD = mysql_connect($this->servidor,$this->usuario,$this->contrasena);
 
@@ -273,7 +305,7 @@
             try {
                 $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base de Tramites');
                 
-                $resultado = mysql_query("SELECT info.asunto, info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria where info.id_trabajador = 9");
+                $resultado = mysql_query("SELECT info.asunto, info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria where info.id_trabajador = $idEmpDocBox");
                 
                 $numeroRegistro = mysql_num_rows($resultado);
                

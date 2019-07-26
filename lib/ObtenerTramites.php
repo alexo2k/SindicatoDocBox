@@ -11,10 +11,11 @@
     }
 
 print <<< EOC
-        <table>
+        <table style="table-layout: fixed; width: 800px">
             <thead>
                 <tr>
                     <th>Asunto</th>
+                    <th>Resumen</th>
                     <th>Fecha Ingreso</th>
                     <th>Secretaría Reponsable</th>
                     <th>Estatus</th>
@@ -23,25 +24,53 @@ print <<< EOC
 EOC;
 
     try {
+
+        $bufferEmpRFC = $_SESSION['RFC'];
+
+        $auxIdDocBox = 0;
+
         $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
 
-        $resultado = mysql_query("SELECT info.asunto, info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria where info.id_trabajador = 9");
+        $resultadoNumEmp = mysql_query("SELECT id_trabajador from empleados where filiacion = '$bufferEmpRFC'");
 
-        $numeroRegistro = mysql_num_rows($resultado);
-               
-        if($numeroRegistro > 0) {
-            echo '<tbody>';
-            while($registro = mysql_fetch_assoc($resultado)) {
-                echo '<tr>';
-                echo '<td>' . $registro['asunto'] . '</td>';
-                echo '<td style="text-align:center">' . $registro['fecha_recepcion'] . '</td>';
-                echo '<td>' . $registro['secretaria'] . '</td>';
-                echo '<td style="text-align:center">' . $registro['estatus'] . '</td>';
-                echo '</tr>';
+        $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
+
+        if($numeroRegNumEmp > 0) {
+            while($registro = mysql_fetch_array($resultadoNumEmp)) {
+                $auxIdDocBox = $registro['id_trabajador'];
             }
-            echo '</tbody>';
         } else {
-            echo 'nothing here';
+            $auxIdDocBox = 0;
+        }
+
+        if($auxIdDocBox > 0) {
+            $resultado = mysql_query("SELECT reso.ResumenOficialia, info.Resumen_Gral ,info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria join resumenoficialia reso on info.Id_ResOficialia = reso.Id_ResOficialia where info.id_trabajador = 6655");
+
+            $numeroRegistro = mysql_num_rows($resultado);
+               
+            if($numeroRegistro > 0) {
+                echo '<tbody>';
+                while($registro = mysql_fetch_assoc($resultado)) {
+                    echo '<tr>';
+                    echo '<td style="font-size: 12px">' . $registro['ResumenOficialia'] . '</td>';
+                    echo '<td><div style="font-size: 13px; overflow: auto;">' . $registro['Resumen_Gral'] . '</div></td>';
+                    echo '<td style="text-align:center">' . $registro['fecha_recepcion'] . '</td>';
+                    echo '<td style="font-size: 12px">' . $registro['secretaria'] . '</td>';
+                    
+                    if($registro['estatus'] ==  'PENDIENTE') {
+                        $estatusBuffer = 'EN PROCESO';
+                    } else {
+                        $estatusBuffer = $registro['estatus'];
+                    }
+                    echo '<td style="text-align:center; font-size: 12px">' . $estatusBuffer . '</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+            } else {
+                echo 'nothing here';
+            }
+        } else {
+            echo 'no se pudo recuperar nada';
         }
     } catch (Exception $e) {
         mysql_close($streamBD);
@@ -51,39 +80,4 @@ EOC;
     mysql_close($streamBD);
 
     echo '</table>';
-
-//     $bufferOperaciones = new Operaciones();
-    
-//     $tramitesActuales = $bufferOperaciones->recuperaTramites($_SESSION['idEmpleado']);
-
-//     if($tramitesActuales != null) {
-//         $asuntoTramite = $tramitesActuales['asunto'];
-//         $fechaTramite = $tramitesActuales['fecha_recepcion'];
-//         $secretariaTramite = $tramitesActuales['secretaria']; 
-//         $estatusTramite = $tramitesActuales['estatus'];
-//     }
-    
-//     $_SESSION['timeOut'] = time(); 
-    
-// echo <<<_END
-//    <table>
-//         <thead>
-//             <tr>
-//                 <th>Asunto</th>
-//                 <th>Fecha Ingreso</th>
-//                 <th>Secretaría Responsable</th>
-//                 <th>Estatus</th>
-//             </tr>
-//         </thead>
-//         <tbody>
-//             <tr>
-//                 <td>$asuntoTramite</td>
-//                 <td>$fechaTramite</td>
-//                 <td>$secretariaTramite</td>
-//                 <td>$estatusTramite</td>
-//             </tr>
-//         </tbody>
-//     </table>
-
-// _END;
 ?>
