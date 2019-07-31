@@ -84,8 +84,10 @@
     
     $nombreUsuario = capitalizaNombre($_SESSION['Nombre']) . ' ' . ucfirst(strtolower($_SESSION['ApPaterno'])) . ' ' . ucfirst(strtolower($_SESSION['ApMaterno']));
     // $auxRFCTrabajador = $_SESSION['RFC'];
-    $idSecretaria = $auxOperaciones->recuperaIdDocBox($_SESSION['RFC']);
-    
+    $idEmpDoc = $auxOperaciones->recuperaIdDocBox($_SESSION['RFC']);
+    $idSecretaria = $auxOperaciones->verificaSecretaria($idEmpDoc); 
+    $_SESSION['IdSecretaria'] = $idSecretaria;
+        
 ?>
 <!DOCTYPE html>
 <html>
@@ -132,7 +134,7 @@ _END;
     }
 ?>
             <h2><? echo "BIENVENIDO $nombreUsuario"; ?></h2>
-            <h3><? echo $_SESSION['RFC'] ?></h3>
+
             <nav>
                 <ul id="nav">
                     <li>

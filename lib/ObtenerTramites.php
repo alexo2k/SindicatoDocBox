@@ -2,13 +2,7 @@
     session_start();
     require_once 'Operaciones.php';
     require_once 'sanitize.php';
-
-    $streamBD = mysql_connect('localhost', 'root', 'eti11$$$');
-
-    if(!$streamBD)
-    {
-        die('No pudo conectarse: ' . mysql_error());
-    }
+    $bufferOperaciones = new Operaciones();
 
 print <<< EOC
         <table style="table-layout: fixed; width: 800px">
@@ -25,25 +19,37 @@ EOC;
 
     try {
 
-        $bufferEmpRFC = $_SESSION['RFC'];
+        // $bufferEmpRFC = $_SESSION['RFC'];
 
-        $auxIdDocBox = 0;
+        // $auxIdDocBox = 0;
 
-        $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
+        // $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
 
-        $resultadoNumEmp = mysql_query("SELECT id_trabajador from empleados where filiacion = '$bufferEmpRFC'");
+        // $resultadoNumEmp = mysql_query("SELECT id_trabajador from empleados where filiacion = '$bufferEmpRFC'");
 
-        $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
+        // $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
 
-        if($numeroRegNumEmp > 0) {
-            while($registro = mysql_fetch_array($resultadoNumEmp)) {
-                $auxIdDocBox = $registro['id_trabajador'];
-            }
-        } else {
-            $auxIdDocBox = 0;
-        }
+        // if($numeroRegNumEmp > 0) {
+        //     while($registro = mysql_fetch_array($resultadoNumEmp)) {
+        //         $auxIdDocBox = $registro['id_trabajador'];
+        //     }
+        // } else {
+        //     $auxIdDocBox = 0;
+        // }
+
+        $auxIdDocBox = $bufferOperaciones->recuperaIdDocBox($_SESSION['RFC']);
 
         if($auxIdDocBox > 0) {
+
+            $streamBD = mysql_connect('localhost', 'root', 'eti11$$$');
+
+            if(!$streamBD)
+            {
+                die('No pudo conectarse: ' . mysql_error());
+            }
+
+            $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
+
             $resultado = mysql_query("SELECT reso.ResumenOficialia, info.Resumen_Gral ,info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria join resumenoficialia reso on info.Id_ResOficialia = reso.Id_ResOficialia where info.id_trabajador = 6655");
 
             $numeroRegistro = mysql_num_rows($resultado);
@@ -70,7 +76,7 @@ EOC;
                 echo 'nothing here';
             }
         } else {
-            echo 'no se pudo recuperar nada';
+            echo 'No se pudo recuperar nada';
         }
     } catch (Exception $e) {
         mysql_close($streamBD);

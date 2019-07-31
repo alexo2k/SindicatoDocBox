@@ -222,7 +222,7 @@
                 
                 $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base DocBox');
 
-                $resultadoNumEmp = mysql_query("SELECT id_trabajador from empleados where filiacion = '$rfcTrabajador'");
+                $resultadoNumEmp = mysql_query("SELECT id_trabajador FROM empleados WHERE filiacion = '$rfcTrabajador'");
 
                 $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
 
@@ -241,6 +241,43 @@
             mysql_close($streamBD);
 
             return $auxIdDocBox;
+        }
+
+        public function verificaSecretaria($idDocBox) {
+            
+            $auxIdEstado = 0;
+
+            $streamBD = mysql_connect($this->servidor, $this->usuario, $this->contrasena);
+            
+            if(!$streamBD)
+            {
+                die('No pudo conectarse a la base: ' . mysql_error());
+            }
+
+            try {
+
+                $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base DocBox');
+
+                $resultadoNumEmp = mysql_query("SELECT Id_Estado FROM estados WHERE id_trabajador = $idDocBox");
+
+                $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
+
+                if($numeroRegNumEmp > 0) {
+                    while($registro = mysql_fetch_array($resultadoNumEmp)) {
+                        $auxIdEstado = $registro['Id_Estado'];
+                    }
+                } else {
+                    $auxIdEstado = 0;
+                }
+            
+            } catch(Exception $ex) {
+                mysql_close($streamBD);
+                throw new Exception('Ocurrio un error al recuperar el id de secretaria: ' + $e->getMessage());
+            }
+
+            mysql_close($streamBD);
+
+            return $auxIdEstado;
         }
         
         public function recuperaDatosPersonales($idEmpleado)
