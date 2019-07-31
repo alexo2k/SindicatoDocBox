@@ -206,6 +206,42 @@
 
             return $idEmpDocBox;
         }
+
+        public function recuperaIdDocBox($rfcTrabajador) {
+  
+            $auxIdDocBox = 0;
+
+            $streamBD = mysql_connect($this->servidor, $this->usuario, $this->contrasena);
+
+            if(!$streamBD)
+            {
+                die('No pudo conectarse a la base de DocBox: ' . mysql_error());
+            }
+
+            try {
+                
+                $baseseleccionada = mysql_select_db($this->baseDocBox, $streamBD) or die('No se pudo conectar a la base DocBox');
+
+                $resultadoNumEmp = mysql_query("SELECT id_trabajador from empleados where filiacion = '$rfcTrabajador'");
+
+                $numeroRegNumEmp = mysql_num_rows($resultadoNumEmp);
+
+                if($numeroRegNumEmp > 0) {
+                    while($registro = mysql_fetch_array($resultadoNumEmp)) {
+                        $auxIdDocBox = $registro['id_trabajador'];
+                    }
+                } else {
+                    $auxIdDocBox = 0;
+                }
+            } catch(Exception $ex) {
+                mysql_close($streamBD);
+                throw new Exception('Ocurrio un error al recuperar el id del trabajador en DocBox: ' + $e->getMessage());
+            }
+
+            mysql_close($streamBD);
+
+            return $auxIdDocBox;
+        }
         
         public function recuperaDatosPersonales($idEmpleado)
         {

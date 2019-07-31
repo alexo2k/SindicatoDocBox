@@ -83,6 +83,8 @@
     }
     
     $nombreUsuario = capitalizaNombre($_SESSION['Nombre']) . ' ' . ucfirst(strtolower($_SESSION['ApPaterno'])) . ' ' . ucfirst(strtolower($_SESSION['ApMaterno']));
+    // $auxRFCTrabajador = $_SESSION['RFC'];
+    $idSecretaria = $auxOperaciones->recuperaIdDocBox($_SESSION['RFC']);
     
 ?>
 <!DOCTYPE html>
@@ -90,6 +92,7 @@
     <head>
         <title>Consultas Sindicato Nacional SEPOMEX</title>
         <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
         <script src="lib/portalEmpleado.js"></script>
         <link rel="stylesheet" type="text/css" href="CSSportalEmpleado.css">
     </head>
@@ -136,16 +139,22 @@ _END;
                         <input type="button" name="boton0" onclick="window.location='../index.php';" value="Home">
                     </li>
                     <li>
-                        <input type="button" name="boton1" onclick="recuperaAcumulado()" value="Total de Aportaciones">
+                        <input type="button" name="boton1" onclick="recuperaAcumulado()" value="Total Aportaciones">
                     </li>
                     <li>
-                        <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total de Adeudo">
+                        <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total Adeudo">
                     </li>
                     <li>
                         <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites">
                     </li>
                     <li>
-                        <input type="button" name="boton3" onclick="cerrarSesion()" value="CerrarSesion">
+                        <input type="button" name="btnSecretario" id="btnSecretario" onclick="recuperaSecretarios()" value="Secretarios">
+                    </li>
+                    <li>
+                        <? echo "<input type=\"hidden\" id=\"idInterno\" name=\"idInterno\" value=$idSecretaria" ?>
+                    </li>
+                    <li>
+                        <input type="button" name="boton5" onclick="cerrarSesion()" value="CerrarSesion">
                     </li>                   
                 </ul>
             </nav>
