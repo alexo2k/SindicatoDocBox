@@ -94,9 +94,8 @@
     <head>
         <title>Consultas Sindicato Nacional SEPOMEX</title>
         <meta charset="UTF-8">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
-        <script src="lib/portalEmpleado.js"></script>
         <link rel="stylesheet" type="text/css" href="CSSportalEmpleado.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </head>
     <body>
         <header>
@@ -141,16 +140,21 @@ _END;
                         <input type="button" name="boton0" onclick="window.location='../index.php';" value="Home">
                     </li>
                     <li>
-                        <input type="button" name="boton1" onclick="recuperaAcumulado()" value="Total Aportaciones">
+                        <!-- <input type="button" name="boton1" onclick="recuperaAcumulado()" value="Total Aportaciones"> -->
+                        <input type="button" name="btnAcumulado" id="btnAcumulado" value="Total Aportaciones">
+
                     </li>
                     <li>
-                        <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total Adeudo">
+                        <input type="button" name="btnAdeudo" id="btnAdeudo" value="Total Adeudo">
+                        <!-- <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total Adeudo"> -->
                     </li>
                     <li>
-                        <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites">
+                        <!-- <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites"> -->
+                        <input type="button" name="btnTramites" id="btnTramites" value="Trámites">
                     </li>
                     <li>
-                        <input type="button" name="btnSecretario" id="btnSecretario" onclick="recuperaSecretarios()" value="Secretarios">
+                        <!-- <input type="button" name="btnSecretario" id="btnSecretario" onclick="recuperaSecretarios()" value="Secretarios"> -->
+                        <input type="button" name="btnSecretario" id="btnSecretario" value="Secretarios">
                     </li>
                     <li>
                         <? echo "<input type=\"hidden\" id=\"idInterno\" name=\"idInterno\" value=$idSecretaria" ?>
@@ -162,6 +166,9 @@ _END;
             </nav>
         </header>
         <div id="divTotal"> </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="lib/portalEmpleado.js"></script>
     </body>
 </html>
 
