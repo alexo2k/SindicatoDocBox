@@ -28,7 +28,7 @@
     try {
         $baseseleccionada = mysql_select_db($baseDocBox, $streamBD) or die('No se pudo conectar a la base DocBox');
         
-        $resultado = mysql_query("SELECT sec.secretaria, info.Fecha_Recepcion, info.Control_Interno, info.Numero_Oficio, info.Oficio_Referencia, info.Medio_Entrega, info.Procedencia, info.NombreEscrito, reso.ResumenOficialia, info.Asunto, info.Control_Seguridad, info.Estatus, info.Resumen_Gral FROM informacion info JOIN secretarias sec ON info.Id_Secretaria = sec.Id_Secretaria JOIN resumenoficialia reso ON info.Id_ResOficialia = reso.Id_ResOficialia WHERE sec.Id_Secretaria = $noEmpAux AND info.Fecha_Recepcion > '$auxfInicio' AND info.Fecha_Recepcion < '$auxfFinal'");
+        $resultado = mysql_query("SELECT sec.secretaria, info.Fecha_Recepcion, info.Control_Interno, info.Numero_Oficio, info.Oficio_Referencia, info.Medio_Entrega, info.Procedencia, info.NombreEscrito, reso.ResumenOficialia, info.Asunto, info.Control_Seguridad, info.Estatus, info.Resumen_Gral FROM informacion info JOIN secretarias sec ON info.Id_Secretaria = sec.Id_Secretaria JOIN resumenoficialia reso ON info.Id_ResOficialia = reso.Id_ResOficialia JOIN estados est ON info.Id_Estado = est.Id_Estado WHERE est.Id_Estado = $noEmpAux AND info.Fecha_Recepcion > '$auxfInicio' AND info.Fecha_Recepcion < '$auxfFinal' ORDER BY 2 DESC");
 
         $numeroRegistro = mysql_num_rows($resultado);
 

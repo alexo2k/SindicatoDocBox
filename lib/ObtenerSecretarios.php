@@ -42,6 +42,25 @@ function exportTableToExcel(tableId, filename = '') {
     <input type="text" id="dtpFin">
     <button type="button" id="btnRecuperaInfo">Buscar trámites</button>
 </div>
-<button type="button" id="btnExporta" onclick="exportTableToExcel('tblTest')">Exportar</button>
-<div id="tablaDatos"></div>
-<table id="tblTest" class="table table-bordered"></table>
+<br/>
+<!-- <button type="button" id="btnExporta" onclick="exportTableToExcel('tblTest')">Exportar</button> -->
+<table id="tblTest" class="compact hover row-border stripe">
+    <thead>
+        <tr>
+            <th>Secretaría</th>
+            <th>Fecha recepción</th>
+            <th style="display:none">Control interno</th>
+            <th style="display:none">Número de oficio</th>
+            <th style="display:none">Oficio de referencia</th>
+            <th style="display:none">Medio de entrega</th>
+            <th style="display:none">Procedencia</th>
+            <th style="display:none">Nombre de escrito</th>
+            <th>Resumen oficialia</th>
+            <th style="display:none">Asunto</th>
+            <th style="display:none">Control seguridad</th>
+            <th style="display:none">Estatus</th>
+            <th style="display:none">Resumen general</th>
+        </tr>
+    </thead>
+    <tbody id="tblCuerpo"></tbody>
+</table>
