@@ -31,16 +31,17 @@ function exportTableToExcel(tableId, filename = '') {
 }
 </script>
 <div>
-    <h2>Reporte de trámites</h2>
+    <h2>Selecciona el periodo del reporte</h2>
 </div>
+<div>
 <br/>
-<div>
-    <h3>Selecciona el periodo del reporte</h3>
-</div>
-<div>
+    <label for="dtpInicio" style="color:white; padding-left:30px">Fecha Inicial:</label>
     <input type="text" id="dtpInicio">
-    <input type="text" id="dtpFin">
-    <button type="button" id="btnRecuperaInfo">Buscar trámites</button>
+    <br/>
+    <label for="dtpFin" style="color:white; padding-left:30px">Fecha Final:     </label>
+    <input type="text" id="dtpFin" style="margin-left:8px">
+    <br/><br>
+    <button type="button" id="btnRecuperaInfo" class="centered submit">Buscar trámites</button>
 </div>
 <br/>
 <!-- <button type="button" id="btnExporta" onclick="exportTableToExcel('tblTest')">Exportar</button> -->

@@ -50,7 +50,7 @@ EOC;
 
             $baseseleccionada = mysql_select_db('sntsep5_internaldocbox', $streamBD) or die('No se pudo conectar a la base de Tramites');
 
-            $resultado = mysql_query("SELECT reso.ResumenOficialia, info.Resumen_Gral ,info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria join resumenoficialia reso on info.Id_ResOficialia = reso.Id_ResOficialia where info.id_trabajador = 6655");
+            $resultado = mysql_query("SELECT reso.ResumenOficialia, info.Resumen_Gral ,info.fecha_recepcion, secre.secretaria, info.estatus from informacion info join secretarias secre on info.id_secretaria = secre.Id_Secretaria join resumenoficialia reso on info.Id_ResOficialia = reso.Id_ResOficialia where info.id_trabajador = $auxIdDocBox");
 
             $numeroRegistro = mysql_num_rows($resultado);
                
@@ -73,17 +73,16 @@ EOC;
                 }
                 echo '</tbody>';
             } else {
-                echo 'nothing here';
+                echo '<h3 style="color: white">No tienes solicitudes pendientes</h1>';
             }
+            mysql_close($streamBD);
         } else {
-            echo 'No se pudo recuperar nada';
+            echo '<h3 style="color: white">No tienes solicitudes pendientes</h3>';
         }
     } catch (Exception $e) {
         mysql_close($streamBD);
         throw new Exception('Ocurrio un error al intentar validar las credenciales: ' + $e->getMessage());
     }
-
-    mysql_close($streamBD);
 
     echo '</table>';
 ?>

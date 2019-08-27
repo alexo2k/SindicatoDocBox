@@ -142,16 +142,16 @@ _END;
                     </li>
                     <li>
                         <!-- <input type="button" name="boton1" onclick="recuperaAcumulado()" value="Total Aportaciones"> -->
-                        <input type="button" name="btnAcumulado" id="btnAcumulado" value="Total Aportaciones">
+                        <input type="button" name="btnAcumulado" id="btnAcumulado" value="Aportaciones al ahorro">
 
                     </li>
                     <li>
-                        <input type="button" name="btnAdeudo" id="btnAdeudo" value="Total Adeudo">
+                        <input type="button" name="btnAdeudo" id="btnAdeudo" value="Total Adeudo" style="display:none">
                         <!-- <input type="button" name="boton2" onclick="recuperaAdeudo()" value="Total Adeudo"> -->
                     </li>
                     <li>
                         <!-- <input type="button" name="boton3" onclick="recuperaTramites()" value="Trámites"> -->
-                        <input type="button" name="btnTramites" id="btnTramites" value="Trámites">
+                        <input type="button" name="btnTramites" id="btnTramites" value="Seguimiento a tus solicitudes">
                     </li>
                     <li>
                         <!-- <input type="button" name="btnSecretario" id="btnSecretario" onclick="recuperaSecretarios()" value="Secretarios"> -->
